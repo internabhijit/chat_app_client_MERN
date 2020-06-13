@@ -4,6 +4,7 @@ import io from "socket.io-client";
 
 import { getFromStorage } from "../../utils/storage";
 
+import { HostUrl } from "../../config/connection";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
@@ -15,19 +16,21 @@ let socket;
 const Chat = ({ location }) => {
   const [senderId, setSenderId] = useState("");
   const [name, setName] = useState("");
+  const [reciever, setReciever] = useState("initialState");
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  // const ENDPOINT = "https://react-chat-application10.herokuapp.com/";
-  const ENDPOINT = "localhost:3001";
 
   useEffect(() => {
-    const { senderId, name, room } = queryString.parse(location.search);
+    const { senderId, name, recieverName, room } = queryString.parse(
+      location.search
+    );
 
-    socket = io(ENDPOINT);
+    socket = io(HostUrl);
 
     setSenderId(Number(senderId));
     setName(name);
+    setReciever(recieverName);
     setRoom(room);
 
     socket.emit("join", { senderId, name, room }, () => {});
@@ -36,7 +39,7 @@ const Chat = ({ location }) => {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOINT, location.search]);
+  }, [HostUrl, location.search]);
 
   // Get Message List From Db
   useEffect(() => {
@@ -51,10 +54,7 @@ const Chat = ({ location }) => {
       },
     };
 
-    fetch(
-      `http://localhost:3001/messages?conversationId=${room}`,
-      requestOptions
-    )
+    fetch(HostUrl + `/messages?conversationId=${room}`, requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {
@@ -64,7 +64,7 @@ const Chat = ({ location }) => {
         }
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     socket.on("message", (message) => {
@@ -83,7 +83,7 @@ const Chat = ({ location }) => {
   return (
     <div className="outerContainer">
       <div className="container">
-        <InfoBar room={room} />
+        <InfoBar room={room} reciever={reciever} />
         <Messages messages={messages} senderId={senderId} senderName={name} />
         <Input
           message={message}

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { HostUrl } from "../../config/connection";
 
 import "whatwg-fetch";
 import "../Join/Join.css";
@@ -23,7 +25,7 @@ const SignUp = () => {
       }),
     };
 
-    fetch("http://localhost:3001/registration", requestOptions)
+    fetch(HostUrl + "/registration", requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {
@@ -84,6 +86,11 @@ const SignUp = () => {
         >
           Sign Up
         </button>
+        <Link to={`/`}>
+          <button className={"button mt-20"} type="submit">
+            Log In
+          </button>
+        </Link>
       </div>
     </div>
   );

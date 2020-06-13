@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
 import { setInStorage } from "../../utils/storage";
+import { HostUrl } from "../../config/connection";
 
 import "whatwg-fetch";
 import "./Join.css";
@@ -22,7 +23,7 @@ const Join = () => {
       }),
     };
 
-    fetch("http://localhost:3001/login", requestOptions)
+    fetch(HostUrl + "/login", requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {
@@ -64,7 +65,6 @@ const Join = () => {
         >
           Sign In
         </button>
-        {/* </Link> */}
         <Link to={`/registration`}>
           <button className={"button mt-20"} type="submit">
             Sign Up

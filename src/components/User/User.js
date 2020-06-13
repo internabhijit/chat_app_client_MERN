@@ -28,7 +28,7 @@ const User = ({ logInUserId, logInUserName, userId, name }) => {
           </b>
         </h4>
         <Link
-          to={`/chat?senderId=${logInUserId}&name=${logInUserName}&room=${room}`}
+          to={`/chat?senderId=${logInUserId}&name=${logInUserName}&recieverName=${name}&room=${room}`}
         >
           <button>Chat</button>
         </Link>
