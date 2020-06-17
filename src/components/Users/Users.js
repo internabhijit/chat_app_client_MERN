@@ -23,7 +23,7 @@ const Users = () => {
       },
     };
 
-    fetch(HostUrl + "/users", requestOptions)
+    fetch("/users", requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {
@@ -51,7 +51,7 @@ const Users = () => {
         },
       };
 
-      fetch(HostUrl + "/logout", requestOptions)
+      fetch("/logout", requestOptions)
         .then((res) => res.json())
         .then((json) => {
           if (json.success) {

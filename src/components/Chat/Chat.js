@@ -54,7 +54,7 @@ const Chat = ({ location }) => {
       },
     };
 
-    fetch(HostUrl + `/messages?conversationId=${room}`, requestOptions)
+    fetch(`/messages?conversationId=${room}`, requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {

@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://react-chat-application10.herokuapp.com",
   "engines": {
     "node": "13.5.0"
   },

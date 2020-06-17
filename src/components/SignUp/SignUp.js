@@ -25,7 +25,7 @@ const SignUp = () => {
       }),
     };
 
-    fetch(HostUrl + "/registration", requestOptions)
+    fetch("/registration", requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {

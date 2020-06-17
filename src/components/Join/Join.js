@@ -23,7 +23,7 @@ const Join = () => {
       }),
     };
 
-    fetch(HostUrl + "/login", requestOptions)
+    fetch("/login", requestOptions)
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {
